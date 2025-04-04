@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>11 Gaon</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #fdfbfb, #ebedee, #e0c3fc, #8ec5fc);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 2px solid #fff;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin: 10px 0;
+    }
+
+    p {
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 16px;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      background-color: #ffffffdd;
+      border: 1.5px solid #111;
+      border-radius: 12px;
+      padding: 14px 20px;
+      margin: 12px auto;
+      font-size: 16px;
+      text-decoration: none;
+      color: #111;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #111;
+      color: white;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+      border: 0;
+      margin-top: 30px;
+      border-radius: 12px;
+    }
+
+    .social {
+      margin-top: 30px;
+    }
+
+    .social a {
+      font-size: 20px;
+      color: #111;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 22px;
+      }
+
+      .btn {
+        font-size: 15px;
+        padding: 12px 16px;
+      }
+
+      iframe {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <img class="profile-pic" src="https://via.placeholder.com/120" alt="11 Gaon logo" />
+
+  <h1>11 Gaon</h1>
+  <p>Connecting villages & cities, one family project at a time! 🏡</p>
+
+  <!-- Booking Section -->
+  <a href="https://www.booking.com/Share-zZNLYu" class="btn" target="_blank">Book Your Stay</a>
+  <a href="https://www.booking.com/hotel/in/11-gaon-mudhouse.en-gb.html" class="btn" target="_blank">11 Gaon - Mudhouse</a>
+  <a href="https://www.booking.com/hotel/in/11-gaon.en-gb.html" class="btn" target="_blank">11 Gaon - Homestay</a>
+
+  <!-- Menu Section -->
+  <a href="#" class="btn">View Our Menu (Coming Soon)</a>
+
+  <!-- Google Maps Embed -->
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.283484025324!2d78.54363507539965!3d29.821495174005902!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3909f74e2e6dbd17%3A0x4c527b180176cdbf!2s11%20Gaon%20Homestay!5e0!3m2!1sen!2sin!4v1712240000000"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+
+  <!-- Instagram -->
+  <div class="social">
+    <a href="https://www.instagram.com/11_gaon/" target="_blank">📸 Instagram</a>
+  </div>
+
+</body>
+</html>
