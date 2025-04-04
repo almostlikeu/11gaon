@@ -119,9 +119,7 @@
     .carousel-container {
       width: 100%;
       max-width: 400px;
-      overflow-x: scroll;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden;
       border-radius: 16px;
       margin: 20px auto 10px;
       position: relative;
@@ -129,14 +127,12 @@
 
     .carousel {
       display: flex;
-      gap: 10px;
-      width: max-content;
+      transition: transform 0.5s ease-in-out;
     }
 
     .carousel img {
       width: 100%;
-      flex: 0 0 100%;
-      scroll-snap-align: start;
+      flex-shrink: 0;
       object-fit: contain;
       aspect-ratio: 1 / 1;
       background-color: #fff;
@@ -165,29 +161,29 @@
       background-color: #111;
     }
 
-    .contact-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 24px;
-      margin: 20px 0;
-      font-size: 28px;
-    }
+.contact-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin: 20px 0;
+  font-size: 28px;
+}
 
-    .contact-row a {
-      text-decoration: none;
-      transition: transform 0.2s;
-    }
+.contact-row a {
+  text-decoration: none;
+  transition: transform 0.2s;
+}
 
-    .contact-row a:hover {
-      transform: scale(1.2);
-    }
+.contact-row a:hover {
+  transform: scale(1.2);
+}
 
-    .contact-row img.icon {
-      width: 30px;
-      height: 30px;
-      vertical-align: middle;
-    }
+.contact-row img.icon {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
 
     @media (max-width: 480px) {
       h1 {
@@ -231,21 +227,23 @@
     </div>
     <div class="dots" id="dots"></div>
   </div>
-  <br>
+<br>
 
-  <!-- Contact Us -->
-  <h3>Contact Us</h3>
-  <div class="contact-row">
-    <a href="tel:+919711223877" title="Call Us">📞</a>
-    <a href="https://wa.me/919711223877" title="WhatsApp" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon"/>
-    </a>
-    <a href="https://www.instagram.com/11_gaon/" title="Instagram" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1024px-Instagram_logo_2022.svg.png" alt="Instagram" class="icon"/>
-    </a>
-  </div>
+<!-- Contact Us -->
+<h3>Contact Us</h3>
+<div class="contact-row">
+  <a href="tel:+919711223877" title="Call Us">📞</a>
+  <a href="https://wa.me/919711223877" title="WhatsApp" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon"/>
+  <a href="https://www.instagram.com/11_gaon/" title="Instagram" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1024px-Instagram_logo_2022.svg.png" alt="Instagram" class="icon"/>
+</div>
+
+
 
   <!-- Links -->
+ 
+
   <div class="link-wrapper">
     <a href="https://www.google.com/travel/hotels/s/CURhEPhbKhtEkQp96" class="btn" target="_blank">Book your stay - Mudhouse</a>
     <span class="share-dot" onclick="shareLink('https://www.google.com/travel/hotels/s/CURhEPhbKhtEkQp96')">⋯</span>
@@ -256,9 +254,9 @@
     <span class="share-dot" onclick="shareLink('https://www.google.com/travel/hotels/s/UJaPpEpUM5ZgpSfz7')">⋯</span>
   </div>
 
-  <div class="link-wrapper">
-    <a href="menu.pdf" class="btn" target="_blank">View Our Menu</a>
-  </div>
+ <div class="link-wrapper">
+  <a href="menu.pdf" class="btn" target="_blank">View Our Menu</a>
+</div>
 
   <!-- Map -->
   <iframe 
@@ -268,7 +266,9 @@
     referrerpolicy="no-referrer-when-downgrade">
   </iframe>
 
-  <!-- JS -->
+ 
+
+  <!-- JS for sharing and carousel -->
   <script>
     function shareLink(link) {
       if (navigator.share) {
@@ -277,8 +277,16 @@
         prompt("Copy this link:", link);
       }
     }
+    
+    window.addEventListener("load", () => {
+  setTimeout(() => {
+    window.scrollTo({
+      top: 100,
+      behavior: "smooth"
+    });
+  }, 1000); // 1s delay to allow everything to render
+});
 
-    const carouselContainer = document.querySelector(".carousel-container");
     const carousel = document.getElementById("carousel");
     const dotsContainer = document.getElementById("dots");
     const images = carousel.querySelectorAll("img");
@@ -293,37 +301,22 @@
     });
 
     function updateCarousel() {
-      const scrollX = carouselContainer.scrollLeft;
-      const width = carouselContainer.offsetWidth;
-      currentIndex = Math.round(scrollX / width);
+      const offset = -currentIndex * 100;
+      carousel.style.transform = `translateX(${offset}%)`;
       document.querySelectorAll(".dot").forEach((dot, idx) => {
         dot.classList.toggle("active", idx === currentIndex);
       });
     }
 
     function goToSlide(index) {
-      carouselContainer.scrollTo({
-        left: carouselContainer.offsetWidth * index,
-        behavior: "smooth"
-      });
+      currentIndex = index;
+      updateCarousel();
     }
 
     setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
-      goToSlide(currentIndex);
+      updateCarousel();
     }, 3000);
-
-    carouselContainer.addEventListener("scroll", () => {
-      clearTimeout(window._scrollTimeout);
-      window._scrollTimeout = setTimeout(updateCarousel, 100);
-    });
-
-    // Auto-scroll page down a little to hint there's more
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        window.scrollTo({ top: 100, behavior: "smooth" });
-      }, 1000);
-    });
   </script>
 
 </body>
