@@ -90,6 +90,41 @@
       text-decoration: none;
     }
 
+    /* Carousel styles */
+    .carousel-container {
+      width: 100%;
+      max-width: 400px;
+      overflow: hidden;
+      border-radius: 16px;
+      margin: 20px auto;
+    }
+
+    .carousel {
+      display: flex;
+      width: 700%; /* 7 images */
+      animation: slide 21s infinite;
+    }
+
+    .carousel img {
+      width: 100%;
+      flex-shrink: 0;
+      object-fit: cover;
+      height: 250px;
+      transition: transform 0.5s ease-in-out;
+      border-radius: 16px;
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(0%); }
+      14.28% { transform: translateX(0%); }
+      28.56% { transform: translateX(-100%); }
+      42.84% { transform: translateX(-200%); }
+      57.12% { transform: translateX(-300%); }
+      71.4% { transform: translateX(-400%); }
+      85.68% { transform: translateX(-500%); }
+      100% { transform: translateX(-600%); }
+    }
+
     @media (max-width: 480px) {
       h1 {
         font-size: 22px;
@@ -103,15 +138,32 @@
       iframe {
         height: 250px;
       }
+
+      .carousel img {
+        height: 200px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <img class="profile-pic" src="logo.jpg" alt="11 Gaon logo" />
+  <img class="profile-pic" src="logo.png" alt="11 Gaon logo" />
 
   <h1>11 Gaon</h1>
   <p>Connecting villages & cities, one family project at a time! 🏡</p>
+
+  <!-- Image Carousel -->
+  <div class="carousel-container">
+    <div class="carousel">
+      <img src="https://via.placeholder.com/400x250?text=Image+1" alt="Image 1">
+      <img src="https://via.placeholder.com/400x250?text=Image+2" alt="Image 2">
+      <img src="https://via.placeholder.com/400x250?text=Image+3" alt="Image 3">
+      <img src="https://via.placeholder.com/400x250?text=Image+4" alt="Image 4">
+      <img src="https://via.placeholder.com/400x250?text=Image+5" alt="Image 5">
+      <img src="https://via.placeholder.com/400x250?text=Image+6" alt="Image 6">
+      <img src="https://via.placeholder.com/400x250?text=Image+7" alt="Image 7">
+    </div>
+  </div>
 
   <!-- Booking Section -->
   <a href="https://www.booking.com/Share-zZNLYu" class="btn" target="_blank">Book Your Stay</a>
