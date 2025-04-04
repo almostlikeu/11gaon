@@ -94,29 +94,31 @@
     .carousel-container {
       width: 100%;
       max-width: 400px;
+      height: 250px;
       overflow: hidden;
       border-radius: 16px;
       margin: 20px auto;
+      position: relative;
     }
 
     .carousel {
       display: flex;
-      width: 700%; /* 7 images */
+      height: 100%;
+      width: 700%;
       animation: slide 21s infinite;
     }
 
     .carousel img {
       width: 100%;
+      height: 100%;
       flex-shrink: 0;
       object-fit: cover;
-      height: 250px;
-      transition: transform 0.5s ease-in-out;
-      border-radius: 16px;
+      object-position: center;
+      border-radius: 0;
     }
 
     @keyframes slide {
-      0% { transform: translateX(0%); }
-      14.28% { transform: translateX(0%); }
+      0%, 14.28% { transform: translateX(0%); }
       28.56% { transform: translateX(-100%); }
       42.84% { transform: translateX(-200%); }
       57.12% { transform: translateX(-300%); }
@@ -139,6 +141,10 @@
         height: 250px;
       }
 
+      .carousel-container {
+        height: 200px;
+      }
+
       .carousel img {
         height: 200px;
       }
@@ -147,7 +153,7 @@
 </head>
 <body>
 
-  <img class="profile-pic" src="logo.png" alt="11 Gaon logo" />
+  <img class="profile-pic" src="logo.jpg" alt="11 Gaon logo" />
 
   <h1>11 Gaon</h1>
   <p>Connecting villages & cities, one family project at a time! 🏡</p>
