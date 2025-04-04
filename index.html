@@ -7,6 +7,7 @@
   <style>
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -34,10 +35,21 @@
       right: 16px;
       background: rgba(255, 255, 255, 0.9);
       border-radius: 50%;
-      padding: 10px;
+      width: 48px;
+      height: 48px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      font-size: 20px;
+      user-select: none;
+      touch-action: manipulation;
       z-index: 1000;
+      transition: background 0.2s;
+    }
+
+    .top-share:active {
+      background: rgba(0, 0, 0, 0.1);
     }
 
     .profile-pic {
@@ -73,14 +85,15 @@
       width: 100%;
       background-color: #ffffffdd;
       border: 1.5px solid #111;
-      border-radius: 12px;
-      padding: 14px 20px;
-      font-size: 16px;
+      border-radius: 16px;
+      padding: 16px 24px;
+      font-size: 17px;
       text-decoration: none;
       color: #111;
       font-weight: 600;
       transition: all 0.2s ease;
       display: block;
+      touch-action: manipulation;
     }
 
     .btn:hover {
@@ -88,13 +101,24 @@
       color: white;
     }
 
+    .btn:active {
+      transform: scale(0.97);
+    }
+
     .share-dot {
       position: absolute;
       right: 12px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 18px;
+      font-size: 20px;
+      padding: 8px;
+      border-radius: 50%;
       cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .share-dot:active {
+      background: rgba(0, 0, 0, 0.1);
     }
 
     iframe {
@@ -161,29 +185,39 @@
       background-color: #111;
     }
 
-.contact-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
-  margin: 20px 0;
-  font-size: 28px;
-}
+    .contact-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+        font-size: 28px;
+      margin: 20px 0;
+    }
 
-.contact-row a {
-  text-decoration: none;
-  transition: transform 0.2s;
-}
+    .contact-row a {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      transition: transform 0.2s;
+      border-radius: 12px;
+    }
 
-.contact-row a:hover {
-  transform: scale(1.2);
-}
+    .contact-row a:hover {
+      transform: scale(1.1);
+    }
 
-.contact-row img.icon {
-  width: 30px;
-  height: 30px;
-  vertical-align: middle;
-}
+    .contact-row a:active {
+      transform: scale(0.95);
+    }
+
+    .contact-row img.icon {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+    }
 
     @media (max-width: 480px) {
       h1 {
@@ -227,23 +261,20 @@
     </div>
     <div class="dots" id="dots"></div>
   </div>
-<br>
 
-<!-- Contact Us -->
-<h3>Contact Us</h3>
-<div class="contact-row">
-  <a href="tel:+919711223877" title="Call Us">📞</a>
-  <a href="https://wa.me/919711223877" title="WhatsApp" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon"/>
-  <a href="https://www.instagram.com/11_gaon/" title="Instagram" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1024px-Instagram_logo_2022.svg.png" alt="Instagram" class="icon"/>
-</div>
-
-
+  <!-- Contact Us -->
+  <h3>Contact Us</h3>
+  <div class="contact-row">
+    <a href="tel:+919711223877" title="Call Us">📞</a>
+    <a href="https://wa.me/919711223877" title="WhatsApp" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon"/>
+    </a>
+    <a href="https://www.instagram.com/11_gaon/" title="Instagram" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1024px-Instagram_logo_2022.svg.png" alt="Instagram" class="icon"/>
+    </a>
+  </div>
 
   <!-- Links -->
- 
-
   <div class="link-wrapper">
     <a href="https://www.google.com/travel/hotels/s/CURhEPhbKhtEkQp96" class="btn" target="_blank">Book your stay - Mudhouse</a>
     <span class="share-dot" onclick="shareLink('https://www.google.com/travel/hotels/s/CURhEPhbKhtEkQp96')">⋯</span>
@@ -254,9 +285,9 @@
     <span class="share-dot" onclick="shareLink('https://www.google.com/travel/hotels/s/UJaPpEpUM5ZgpSfz7')">⋯</span>
   </div>
 
- <div class="link-wrapper">
-  <a href="menu.pdf" class="btn" target="_blank">View Our Menu</a>
-</div>
+  <div class="link-wrapper">
+    <a href="menu.pdf" class="btn" target="_blank">View Our Menu</a>
+  </div>
 
   <!-- Map -->
   <iframe 
@@ -265,8 +296,6 @@
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade">
   </iframe>
-
- 
 
   <!-- JS for sharing and carousel -->
   <script>
@@ -277,15 +306,6 @@
         prompt("Copy this link:", link);
       }
     }
-    
-    window.addEventListener("load", () => {
-  setTimeout(() => {
-    window.scrollTo({
-      top: 100,
-      behavior: "smooth"
-    });
-  }, 1000); // 1s delay to allow everything to render
-});
 
     const carousel = document.getElementById("carousel");
     const dotsContainer = document.getElementById("dots");
@@ -313,10 +333,30 @@
       updateCarousel();
     }
 
+    // Auto scroll
     setInterval(() => {
       currentIndex = (currentIndex + 1) % images.length;
       updateCarousel();
     }, 3000);
+
+    // Swipe Support
+    let startX = 0;
+    carousel.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    carousel.addEventListener("touchend", (e) => {
+      let endX = e.changedTouches[0].clientX;
+      let deltaX = endX - startX;
+      if (Math.abs(deltaX) > 50) {
+        if (deltaX > 0) {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+        } else {
+          currentIndex = (currentIndex + 1) % images.length;
+        }
+        updateCarousel();
+      }
+    });
   </script>
 
 </body>
