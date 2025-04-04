@@ -116,40 +116,49 @@
       text-decoration: none;
     }
 
-    /* Carousel styles */
     .carousel-container {
       width: 100%;
       max-width: 400px;
       overflow: hidden;
       border-radius: 16px;
-      margin: 20px auto;
+      margin: 20px auto 10px;
+      position: relative;
     }
 
     .carousel {
       display: flex;
-      width: 700%;
-      animation: slide 21s infinite;
+      transition: transform 0.5s ease-in-out;
     }
 
-.carousel img {
-  width: 100%;
-  max-width: 400px; 
-  flex-shrink: 0;
-  object-fit: contain;
-  aspect-ratio: 1 / 1;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 16px;
-}
+    .carousel img {
+      width: 100%;
+      flex-shrink: 0;
+      object-fit: contain;
+      aspect-ratio: 1 / 1;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 16px;
+    }
 
-    @keyframes slide {
-      0%, 14.28% { transform: translateX(0%); }
-      28.56% { transform: translateX(-100%); }
-      42.84% { transform: translateX(-200%); }
-      57.12% { transform: translateX(-300%); }
-      71.4%  { transform: translateX(-400%); }
-      85.68% { transform: translateX(-500%); }
-      100%   { transform: translateX(-600%); }
+    .dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .dot {
+      height: 10px;
+      width: 10px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: #111;
     }
 
     @media (max-width: 480px) {
@@ -177,14 +186,13 @@
   <!-- Global share button -->
   <div class="top-share" onclick="navigator.share ? navigator.share({ title: '11 Gaon', url: window.location.href }) : alert('Sharing not supported');">⋯</div>
 
-  <!-- Logo and title -->
   <img class="profile-pic" src="logo.png" alt="11 Gaon logo" />
   <h1>11 Gaon</h1>
   <p>Connecting villages & cities, one family project at a time! 🏡</p>
 
   <!-- Carousel -->
   <div class="carousel-container">
-    <div class="carousel">
+    <div class="carousel" id="carousel">
       <img src="img1.png" alt="Image 1">
       <img src="img2.png" alt="Image 2">
       <img src="img3.png" alt="Image 3">
@@ -193,8 +201,9 @@
       <img src="img6.png" alt="Image 6">
       <img src="img7.png" alt="Image 7">
     </div>
+    <div class="dots" id="dots"></div>
   </div>
-
+<br>
   <!-- Links -->
   <div class="link-wrapper">
     <a href="https://www.booking.com/Share-zZNLYu" class="btn" target="_blank">Book Your Stay</a>
@@ -229,7 +238,7 @@
     <a href="https://www.instagram.com/11_gaon/" target="_blank">📸 Instagram</a>
   </div>
 
-  <!-- JS for sharing -->
+  <!-- JS for sharing and carousel -->
   <script>
     function shareLink(link) {
       if (navigator.share) {
@@ -238,6 +247,38 @@
         prompt("Copy this link:", link);
       }
     }
+
+    const carousel = document.getElementById("carousel");
+    const dotsContainer = document.getElementById("dots");
+    const images = carousel.querySelectorAll("img");
+    let currentIndex = 0;
+
+    images.forEach((_, index) => {
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      if (index === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => goToSlide(index));
+      dotsContainer.appendChild(dot);
+    });
+
+    function updateCarousel() {
+      const offset = -currentIndex * 100;
+      carousel.style.transform = `translateX(${offset}%)`;
+      document.querySelectorAll(".dot").forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === currentIndex);
+      });
+    }
+
+    function goToSlide(index) {
+      currentIndex = index;
+      updateCarousel();
+    }
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateCarousel();
+    }, 3000);
   </script>
+
 </body>
 </html>
