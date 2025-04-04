@@ -20,7 +20,6 @@
       flex-direction: column;
       align-items: center;
       padding: 30px 16px;
-      scroll-behavior: smooth;
     }
 
     @keyframes gradientBG {
@@ -129,16 +128,13 @@
     .carousel {
       display: flex;
       transition: transform 0.5s ease-in-out;
-      scroll-snap-type: x mandatory;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
     }
 
     .carousel img {
-      flex: 0 0 100%;
-      scroll-snap-align: start;
+      width: 100%;
+      flex-shrink: 0;
+      object-fit: contain;
       aspect-ratio: 1 / 1;
-      object-fit: cover;
       background-color: #fff;
       padding: 10px;
       border-radius: 16px;
@@ -165,29 +161,29 @@
       background-color: #111;
     }
 
-    .contact-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 24px;
-      margin: 20px 0;
-      font-size: 28px;
-    }
+.contact-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin: 20px 0;
+  font-size: 28px;
+}
 
-    .contact-row a {
-      text-decoration: none;
-      transition: transform 0.2s;
-    }
+.contact-row a {
+  text-decoration: none;
+  transition: transform 0.2s;
+}
 
-    .contact-row a:hover {
-      transform: scale(1.2);
-    }
+.contact-row a:hover {
+  transform: scale(1.2);
+}
 
-    .contact-row img.icon {
-      width: 30px;
-      height: 30px;
-      vertical-align: middle;
-    }
+.contact-row img.icon {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
 
     @media (max-width: 480px) {
       h1 {
@@ -211,6 +207,7 @@
 </head>
 <body>
 
+  <!-- Global share button -->
   <div class="top-share" onclick="navigator.share ? navigator.share({ title: '11 Gaon', url: window.location.href }) : alert('Sharing not supported');">⋯</div>
 
   <img class="profile-pic" src="logo.jpg" alt="11 Gaon logo" />
@@ -230,19 +227,23 @@
     </div>
     <div class="dots" id="dots"></div>
   </div>
+<br>
 
-  <h3>Contact Us</h3>
-  <div class="contact-row">
-    <a href="tel:+919711223877" title="Call Us">📞</a>
-    <a href="https://wa.me/919711223877" title="WhatsApp" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon"/>
-    </a>
-    <a href="https://www.instagram.com/11_gaon/" title="Instagram" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1024px-Instagram_logo_2022.svg.png" alt="Instagram" class="icon"/>
-    </a>
-  </div>
+<!-- Contact Us -->
+<h3>Contact Us</h3>
+<div class="contact-row">
+  <a href="tel:+919711223877" title="Call Us">📞</a>
+  <a href="https://wa.me/919711223877" title="WhatsApp" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon"/>
+  <a href="https://www.instagram.com/11_gaon/" title="Instagram" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1024px-Instagram_logo_2022.svg.png" alt="Instagram" class="icon"/>
+</div>
+
+
 
   <!-- Links -->
+ 
+
   <div class="link-wrapper">
     <a href="https://www.google.com/travel/hotels/s/CURhEPhbKhtEkQp96" class="btn" target="_blank">Book your stay - Mudhouse</a>
     <span class="share-dot" onclick="shareLink('https://www.google.com/travel/hotels/s/CURhEPhbKhtEkQp96')">⋯</span>
@@ -253,9 +254,9 @@
     <span class="share-dot" onclick="shareLink('https://www.google.com/travel/hotels/s/UJaPpEpUM5ZgpSfz7')">⋯</span>
   </div>
 
-  <div class="link-wrapper">
-    <a href="menu.pdf" class="btn" target="_blank">View Our Menu</a>
-  </div>
+ <div class="link-wrapper">
+  <a href="menu.pdf" class="btn" target="_blank">View Our Menu</a>
+</div>
 
   <!-- Map -->
   <iframe 
@@ -265,6 +266,9 @@
     referrerpolicy="no-referrer-when-downgrade">
   </iframe>
 
+ 
+
+  <!-- JS for sharing and carousel -->
   <script>
     function shareLink(link) {
       if (navigator.share) {
@@ -273,6 +277,15 @@
         prompt("Copy this link:", link);
       }
     }
+    
+    window.addEventListener("load", () => {
+  setTimeout(() => {
+    window.scrollTo({
+      top: 100,
+      behavior: "smooth"
+    });
+  }, 1000); // 1s delay to allow everything to render
+});
 
     const carousel = document.getElementById("carousel");
     const dotsContainer = document.getElementById("dots");
@@ -289,7 +302,7 @@
 
     function updateCarousel() {
       const offset = -currentIndex * 100;
-      carousel.scrollTo({ left: carousel.offsetWidth * currentIndex, behavior: 'smooth' });
+      carousel.style.transform = `translateX(${offset}%)`;
       document.querySelectorAll(".dot").forEach((dot, idx) => {
         dot.classList.toggle("active", idx === currentIndex);
       });
@@ -304,13 +317,7 @@
       currentIndex = (currentIndex + 1) % images.length;
       updateCarousel();
     }, 3000);
-
-    // Auto-scroll slightly on load to hint scrollable content
-    window.onload = function() {
-      setTimeout(() => {
-        window.scrollBy({ top: 80, behavior: 'smooth' });
-      }, 800);
-    };
   </script>
+
 </body>
 </html>
